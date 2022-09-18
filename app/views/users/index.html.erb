@@ -17,7 +17,7 @@
     </div>
 
     <div class="col-md-8 offset-md-1">
-      <h2>Books</h2>
+      <h2>Users</h2>
       <table class="table">
         <thead>
           <tr>
@@ -27,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          <%= @users.each do |user| %>
+          <% @users.each do |user| %>
           <tr>
             <td>
               <%= image_tag user.get_image(80,80) %>
@@ -36,8 +36,9 @@
               <%= user.name %>
             </td>
             <td>
-               <%= link_to "show" user_path(user.id) %>
+               <%= link_to "show", user_path(user.id) %>
             </td>
           </tr>
+          <% end %>
         </tbody>
       </table>
