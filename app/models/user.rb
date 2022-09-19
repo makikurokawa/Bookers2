@@ -15,5 +15,8 @@ class User < ApplicationRecord
     end
     image
   end
+  
+  validates :name, presence: true
+
 
 end

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :correct_user, only: [:edit, :update]
+
   def index
     @users = User.all
     @book = Book.new
@@ -19,7 +21,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user.id), notice: 'You have updated user successfully.'
     else
-      redirect_to user_path(@user.id)
+      render :edit
     end
   end
 
@@ -27,13 +29,16 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       redirect_to user_path(resource), notice: 'Welcome! You have signed up successfully.'
-    else
-      redirect_to root_path
     end
   end
 
   private
   def user_params
     params.require(:user).permit(:name, :body, :image)
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to user_path(@user.id) unless @user == current_user
   end
 end
